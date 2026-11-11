@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      PORT: "8080"
+      CORS_ORIGIN: ""
+    expose:
+      - "8080"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
