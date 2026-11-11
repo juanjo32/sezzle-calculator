@@ -31,6 +31,9 @@ design decision (see the README).
 6. > Walk me through each file so I can explain every line, and point out
    > anything you would change. Then apply the changes I agreed with.
 
+7. > Audit the repository against every requirement of the assignment, run
+   > everything from a fresh clone and fix any gaps.
+
 ## What I changed or decided myself
 
 - Ran the backend and frontend locally on Windows 11 (Go 1.27, Node 24),
