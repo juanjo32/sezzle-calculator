@@ -82,8 +82,8 @@ func SupportedOperations() []Operation {
 
 // Calculate validates the inputs and evaluates op.
 //
-// a is always required. b is required for binary operations and must be nil
-// for unary ones only in the sense that it is ignored; callers may pass it.
+// a is always required. b is required for binary operations and ignored for
+// unary ones.
 // The result is guaranteed to be finite: overflow (e.g. 1e308 * 10) or
 // undefined results (e.g. (-8)^0.5) are reported as ErrNonFiniteResult
 // instead of leaking +Inf or NaN, which JSON cannot represent.
