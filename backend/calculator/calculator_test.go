@@ -76,6 +76,18 @@ func TestSupportedAndUnary(t *testing.T) {
 			t.Errorf("%s should be supported", op)
 		}
 	}
+	// The advertised list is maintained by hand, so make sure it stays in sync
+	// with the operations map: same size and no duplicates.
+	seen := map[Operation]bool{}
+	for _, op := range SupportedOperations() {
+		if seen[op] {
+			t.Errorf("%s is listed twice", op)
+		}
+		seen[op] = true
+	}
+	if len(seen) != len(operations) {
+		t.Errorf("SupportedOperations lists %d operations, map has %d", len(seen), len(operations))
+	}
 	if Supported("modulo") {
 		t.Error("modulo should not be supported")
 	}
