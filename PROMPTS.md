@@ -33,8 +33,9 @@ design decision (see the README).
 
 ## What I changed or decided myself
 
-- Ran the backend and frontend locally on Windows 11 (Go 1.27, Node 24) and
-  exercised the API with curl instead of only trusting the generated setup. `make` is not available on Windows, so I added
+- Ran the backend and frontend locally on Windows 11 (Go 1.27, Node 24),
+  exercised the API with curl and checked the full stack with
+  `docker compose up` instead of only trusting the generated setup. `make` is not available on Windows, so I added
   PowerShell notes to the README (`npm test -- --run`, `curl.exe`).
 - The 415 response reused the `INVALID_JSON` code even though the body was fine
   and the problem was the Content-Type. I gave it its own code,
