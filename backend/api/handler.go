@@ -52,6 +52,7 @@ type APIError struct {
 // Error codes returned by the API. They are part of the public contract.
 const (
 	CodeInvalidJSON          = "INVALID_JSON"
+	CodeUnsupportedMedia     = "UNSUPPORTED_MEDIA_TYPE"
 	CodeInvalidInput         = "INVALID_INPUT"
 	CodeUnsupportedOperation = "UNSUPPORTED_OPERATION"
 	CodeDivisionByZero       = "DIVISION_BY_ZERO"
@@ -115,7 +116,7 @@ func decodeRequest(w http.ResponseWriter, r *http.Request) (CalculateRequest, *A
 	var req CalculateRequest
 
 	if ct := r.Header.Get("Content-Type"); ct != "" && !strings.HasPrefix(ct, "application/json") {
-		return req, &APIError{CodeInvalidJSON, "Content-Type must be application/json"}, http.StatusUnsupportedMediaType
+		return req, &APIError{CodeUnsupportedMedia, "Content-Type must be application/json"}, http.StatusUnsupportedMediaType
 	}
 
 	r.Body = http.MaxBytesReader(w, r.Body, maxBodyBytes)

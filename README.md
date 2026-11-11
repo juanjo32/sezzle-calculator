@@ -172,7 +172,7 @@ Every error has the same shape:
 | 400 | `INVALID_JSON` | Body is empty, malformed, has unknown fields or trailing data |
 | 400 | `INVALID_INPUT` | Missing operation or operand, or an operand that is not a number |
 | 400 | `UNSUPPORTED_OPERATION` | Operation name not recognized |
-| 415 | `INVALID_JSON` | `Content-Type` is not `application/json` |
+| 415 | `UNSUPPORTED_MEDIA_TYPE` | `Content-Type` is not `application/json` |
 | 413 | `PAYLOAD_TOO_LARGE` | Body larger than 4 KiB |
 | 422 | `DIVISION_BY_ZERO` | `b` is 0 in a division |
 | 422 | `NEGATIVE_SQRT` | Square root of a negative number |

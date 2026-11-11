@@ -89,7 +89,7 @@ func TestCalculateErrors(t *testing.T) {
 		{"empty body", ``, nil, http.StatusBadRequest, CodeInvalidJSON},
 		{"unknown field", `{"operation":"add","a":1,"b":2,"c":3}`, nil, http.StatusBadRequest, CodeInvalidJSON},
 		{"trailing data", `{"operation":"add","a":1,"b":2}{"x":1}`, nil, http.StatusBadRequest, CodeInvalidJSON},
-		{"wrong content type", `{"operation":"add","a":1,"b":2}`, map[string]string{"Content-Type": "text/plain"}, http.StatusUnsupportedMediaType, CodeInvalidJSON},
+		{"wrong content type", `{"operation":"add","a":1,"b":2}`, map[string]string{"Content-Type": "text/plain"}, http.StatusUnsupportedMediaType, CodeUnsupportedMedia},
 		{"payload too large", `{"operation":"add","a":1,"b":2,"pad":"` + strings.Repeat("x", 5000) + `"}`, nil, http.StatusRequestEntityTooLarge, CodePayloadTooLarge},
 	}
 	for _, tc := range tests {
