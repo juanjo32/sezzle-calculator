@@ -82,6 +82,10 @@ make test        # backend (with -race) + frontend
 make coverage    # coverage reports for both layers
 ```
 
+On Windows, where `make` is usually not installed, run the per-layer commands
+below from PowerShell (use `npm test -- --run` for a single test run, and
+`curl.exe` instead of `curl` for the API examples).
+
 Or per layer:
 
 ```bash
