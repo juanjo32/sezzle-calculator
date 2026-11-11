@@ -27,6 +27,7 @@ computes the result and returns JSON.
 │   └── Dockerfile
 ├── docker-compose.yml
 ├── Makefile
+├── docs/coverage/       Coverage reports for both layers
 └── PROMPTS.md           AI prompts used while building this
 ```
 
@@ -102,7 +103,8 @@ npm test
 npm run coverage                           # text summary + HTML in frontend/coverage/
 ```
 
-Coverage at the time of submission:
+Coverage at the time of submission (full reports in
+[`docs/coverage/`](docs/coverage/)):
 
 | Layer | Package / file | Statements |
 |-------|----------------|-----------|
@@ -118,7 +120,8 @@ with `docker compose up`.
 
 ## API
 
-Base path: `/api/v1`. All responses are JSON.
+Base path: `/api/v1`. All responses are JSON, except the 405 that the Go
+router answers in plain text for a wrong HTTP method.
 
 ### `POST /api/v1/calculate`
 
@@ -249,6 +252,12 @@ available on the backend for clients served from other origins.
 - Operands and results are within `float64` range; anything beyond is reported as an error.
 - `percentage` means "b percent of a".
 - History is per browser session only; there is no persistence.
+
+## AI usage
+
+I used an AI assistant as a pair programmer, as the assignment allows. The
+prompts and the changes I made after reviewing the code are in
+[PROMPTS.md](PROMPTS.md).
 
 ## What I would add next
 
