@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"reflect"
 	"strings"
 
 	"github.com/juanjo32/sezzle-calculator/backend/calculator"
@@ -130,7 +131,7 @@ func decodeRequest(w http.ResponseWriter, r *http.Request) (CalculateRequest, *A
 		case errors.As(err, &maxErr):
 			return req, &APIError{CodePayloadTooLarge, fmt.Sprintf("request body must not exceed %d bytes", maxBodyBytes)}, http.StatusRequestEntityTooLarge
 		case errors.As(err, &typeErr):
-			return req, &APIError{CodeInvalidInput, fmt.Sprintf("field %q must be a %s", typeErr.Field, typeErr.Type)}, http.StatusBadRequest
+			return req, &APIError{CodeInvalidInput, fmt.Sprintf("field %q must be a %s", typeErr.Field, jsonTypeName(typeErr.Type.Kind()))}, http.StatusBadRequest
 		case errors.Is(err, io.EOF):
 			return req, &APIError{CodeInvalidJSON, "request body is empty"}, http.StatusBadRequest
 		default:
@@ -145,6 +146,18 @@ func decodeRequest(w http.ResponseWriter, r *http.Request) (CalculateRequest, *A
 		return req, &APIError{CodeInvalidInput, `field "operation" is required`}, http.StatusBadRequest
 	}
 	return req, nil, 0
+}
+
+// jsonTypeName describes a Go kind with the JSON type a client would send.
+func jsonTypeName(k reflect.Kind) string {
+	switch k {
+	case reflect.Float64:
+		return "number"
+	case reflect.String:
+		return "string"
+	default:
+		return k.String()
+	}
 }
 
 // mapError translates domain errors into HTTP status codes and API codes.

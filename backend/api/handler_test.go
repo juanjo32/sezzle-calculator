@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -85,6 +86,7 @@ func TestCalculateErrors(t *testing.T) {
 		{"missing b", `{"operation":"add","a":2}`, nil, http.StatusBadRequest, CodeInvalidInput},
 		{"null b", `{"operation":"add","a":2,"b":null}`, nil, http.StatusBadRequest, CodeInvalidInput},
 		{"string operand", `{"operation":"add","a":"2","b":3}`, nil, http.StatusBadRequest, CodeInvalidInput},
+		{"numeric operation", `{"operation":5,"a":1,"b":2}`, nil, http.StatusBadRequest, CodeInvalidInput},
 		{"malformed JSON", `{"operation":"add",`, nil, http.StatusBadRequest, CodeInvalidJSON},
 		{"empty body", ``, nil, http.StatusBadRequest, CodeInvalidJSON},
 		{"unknown field", `{"operation":"add","a":1,"b":2,"c":3}`, nil, http.StatusBadRequest, CodeInvalidJSON},
@@ -109,6 +111,19 @@ func TestCalculateErrors(t *testing.T) {
 				t.Error("error message should not be empty")
 			}
 		})
+	}
+}
+
+func TestJSONTypeName(t *testing.T) {
+	cases := map[reflect.Kind]string{
+		reflect.Float64: "number",
+		reflect.String:  "string",
+		reflect.Bool:    "bool",
+	}
+	for kind, want := range cases {
+		if got := jsonTypeName(kind); got != want {
+			t.Errorf("jsonTypeName(%v) = %q, want %q", kind, got, want)
+		}
 	}
 }
 
