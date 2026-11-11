@@ -1,0 +1,10 @@
+# Go
+backend/coverage.out
+backend/coverage.html
+
+# Node
+frontend/node_modules
+frontend/dist
+frontend/coverage
+
+.DS_Store
