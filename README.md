@@ -46,7 +46,7 @@ Open http://localhost:3000. nginx serves the frontend and forwards `/api/*` to t
 
 ### Option 2: Local development
 
-Requirements: Go 1.22+ and Node.js 20+.
+Requirements: Go 1.24+ and Node.js 20+.
 
 **Backend** (http://localhost:8080):
 
@@ -83,8 +83,8 @@ make coverage    # coverage reports for both layers
 ```
 
 On Windows, where `make` is usually not installed, run the per-layer commands
-below from PowerShell (use `npm test -- --run` for a single test run, and
-`curl.exe` instead of `curl` for the API examples).
+below from PowerShell, and use `curl.exe` instead of `curl` for the API
+examples.
 
 Or per layer:
 
@@ -111,7 +111,8 @@ Coverage at the time of submission:
 | Frontend | all source files | 100% (94% branches) |
 
 `main.go` is intentionally not unit tested: it only wires configuration and the
-server. Its behavior is covered by the handler tests plus the Docker smoke test.
+server. Its behavior is covered by the handler tests and was checked manually
+with `docker compose up`.
 
 ---
 
